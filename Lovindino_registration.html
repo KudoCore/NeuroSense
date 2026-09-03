@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sun Son Solar | Account</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #064e3b, #0f766e);
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo .sun {
+            font-size: 45px;
+        }
+
+        .logo h1 {
+            color: #064e3b;
+            font-size: 26px;
+        }
+
+        .logo p {
+            color: #777;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        h2 {
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+        .form {
+            display: none;
+        }
+
+        .form.active {
+            display: block;
+        }
+
+        .input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .input:focus {
+            border-color: #0f766e;
+            box-shadow: 0 0 0 3px rgba(15,118,110,0.1);
+        }
+
+        .button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #f59e0b;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .button:hover {
+            background: #d97706;
+        }
+
+        .switch {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .switch a {
+            color: #0f766e;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <div class="sun">☀️</div>
+        <h1>Sun Son Solar</h1>
+        <p>Powering a brighter future</p>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="registerForm" class="form active">
+
+        <h2>Create Account</h2>
+
+        <div id="registerMessage" class="message"></div>
+
+        <input
+            class="input"
+            id="firstName"
+            type="text"
+            placeholder="First Name"
+            required
+        >
+
+        <input
+            class="input"
+            id="lastName"
+            type="text"
+            placeholder="Last Name"
+            required
+        >
+
+        <input
+            class="input"
+            id="regUsername"
+            type="text"
+            placeholder="Username"
+            required
+        >
+
+        <input
+            class="input"
+            id="regEmail"
+            type="email"
+            placeholder="Email Address"
+            required
+        >
+
+        <input
+            class="input"
+            id="regPassword"
+            type="password"
+            placeholder="Password"
+            required
+        >
+
+        <input
+            class="input"
+            id="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            required
+        >
+
+        <button class="button" onclick="register()">
+            Create Account
+        </button>
+
+        <div class="switch">
+            Already have an account?
+            <a onclick="showLogin()">Login</a>
+        </div>
+
+    </div>
+
+
+    <!-- LOGIN -->
+    <div id="loginForm" class="form">
+
+        <h2>Welcome Back</h2>
+
+        <div id="loginMessage" class="message"></div>
+
+        <input
+            class="input"
+            id="loginUsername"
+            type="text"
+            placeholder="Username"
+            required
+        >
+
+        <input
+            class="input"
+            id="loginPassword"
+            type="password"
+            placeholder="Password"
+            required
+        >
+
+        <button class="button" onclick="login()">
+            Login
+        </button>
+
+        <div class="switch">
+            Don't have an account?
+            <a onclick="showRegister()">Create Account</a>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function showLogin() {
+        document.getElementById("registerForm")
+            .classList.remove("active");
+
+        document.getElementById("loginForm")
+            .classList.add("active");
+    }
+
+    function showRegister() {
+        document.getElementById("loginForm")
+            .classList.remove("active");
+
+        document.getElementById("registerForm")
+            .classList.add("active");
+    }
+
+
+    function register() {
+
+        const firstName =
+            document.getElementById("firstName").value.trim();
+
+        const lastName =
+            document.getElementById("lastName").value.trim();
+
+        const username =
+            document.getElementById("regUsername").value.trim();
+
+        const email =
+            document.getElementById("regEmail").value.trim();
+
+        const password =
+            document.getElementById("regPassword").value;
+
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+        const message =
+            document.getElementById("registerMessage");
+
+
+        if (!firstName || !lastName || !username ||
+            !email || !password || !confirmPassword) {
+
+            message.className = "message error";
+            message.textContent = "Please fill in all fields.";
+            return;
+        }
+
+
+        if (password !== confirmPassword) {
+
+            message.className = "message error";
+            message.textContent = "Passwords do not match.";
+            return;
+        }
+
+
+        if (password.length < 8) {
+
+            message.className = "message error";
+            message.textContent =
+                "Password must be at least 8 characters.";
+
+            return;
+        }
+
+
+        const user = {
+            firstName,
+            lastName,
+            username,
+            email,
+            password
+        };
+
+
+        localStorage.setItem(
+            "sunSonUser",
+            JSON.stringify(user)
+        );
+
+
+        message.className = "message success";
+        message.textContent =
+            "Account created! You can now login.";
+
+
+        setTimeout(() => {
+            showLogin();
+        }, 1000);
+    }
+
+
+    function login() {
+
+        const username =
+            document.getElementById("loginUsername").value.trim();
+
+        const password =
+            document.getElementById("loginPassword").value;
+
+        const message =
+            document.getElementById("loginMessage");
+
+
+        const savedUser =
+            localStorage.getItem("sunSonUser");
+
+
+        if (!savedUser) {
+
+            message.className = "message error";
+            message.textContent =
+                "No account found. Please register first.";
+
+            return;
+        }
+
+
+        const user = JSON.parse(savedUser);
+
+
+        if (
+            username === user.username &&
+            password === user.password
+        ) {
+
+            message.className = "message success";
+            message.textContent =
+                "Login successful! Welcome, " +
+                user.firstName + ".";
+
+        } else {
+
+            message.className = "message error";
+            message.textContent =
+                "Incorrect username or password.";
+
+        }
+    }
+
+</script>
+
+</body>
+</html>
